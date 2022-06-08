@@ -6,20 +6,42 @@ import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import routes from '../navigation/routes';
 import {colors} from '../theme/index';
-
+import newApi from '../../config';
+import {useEffect} from 'react/cjs/react.production.min';
+import axios from 'axios';
 const SignInScreen = () => {
   const [email, setEmail] = useState(null);
-  const [name, setName] = useState(null);
-  const [phoneNumer, setphoneNumer] = useState(null);
+  const [phone, setPhone] = useState(null);
   const [password, setPassword] = useState(null);
-  const [NIC, setNIC] = useState(null);
+  const [nic, setnic] = useState(null);
   const [confirmPassword, setconfirmPassword] = useState(null);
   const navigation = useNavigation();
 
   const handleSignUp = () => {
-    console.log(email, phoneNumer, NIC, password, confirmPassword);
-    ToastAndroid.show('SignUp successful !', ToastAndroid.SHORT);
+    console.log(email, phone, nic, password, confirmPassword);
+
+    axios
+      .post('http://192.168.8.161:8001/api/user/create', {
+        email: email,
+        password: password,
+        phone: phone,
+        nic: nic,
+      })
+      .then(function (response) {
+        var output = response.data;
+        console.log(output.message);
+        ToastAndroid.show(output.message, ToastAndroid.SHORT);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
     //navigation.navigate(routes.WELCOME);
+  };
+
+  const handleSignIn = () => {
+    console.log(email);
+    navigation.navigate(routes.SIGNIN);
   };
 
   return (
@@ -58,7 +80,7 @@ const SignInScreen = () => {
             <TextBox
               phone
               icon="ios-keypad"
-              onChangeText={setphoneNumer}
+              onChangeText={setPhone}
               autoCapitalize="none"
               placeholder="Your phone number"
             />
@@ -67,7 +89,7 @@ const SignInScreen = () => {
             </Typography>
             <TextBox
               icon="pricetag"
-              onChangeText={setNIC}
+              onChangeText={setnic}
               autoCapitalize="none"
               placeholder="Your NIC"
             />
@@ -91,12 +113,17 @@ const SignInScreen = () => {
               placeholder="Confirm password"
               secureTextEntry
             />
-            <Button primary shadow onPress={() => handleSignUp()}>
+            <Button
+              primary
+              shadow
+              onPress={() =>
+                handleSignUp(email, password, confirmPassword, nic, phone)
+              }>
               <Typography center white bold size={15}>
                 SIGN UP
               </Typography>
             </Button>
-            <Button white shadow onPress={() => navigation.goBack()}>
+            <Button white shadow onPress={() => handleSignIn()}>
               <Typography center black bold size={15}>
                 SIGNIN
               </Typography>

@@ -54,7 +54,7 @@ const WelcomeScreen = () => {
             <Button
               white
               shadow
-              onPress={() => handleNavigation(routes.SIGNUP)}
+              onPress={() => handleNavigation(routes.KEYVERIFY)}
               style={styles.button}>
               <Typography center black bold>
                 SIGN UP

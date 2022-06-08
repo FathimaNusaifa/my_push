@@ -17,7 +17,7 @@ const ForgotPassword = () => {
     ToastAndroid.show(
       'We have e-mailed your password reset link!',
       ToastAndroid.SHORT,
-    );
+      navigation.navigate(routes.SIGNIN)    );
   };
 
   return (

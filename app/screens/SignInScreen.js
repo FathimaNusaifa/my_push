@@ -19,7 +19,7 @@ const SignInScreen = () => {
 
   const handleSignUp = () => {
     console.log(email, password);
-    navigation.navigate(routes.SIGNUP);
+    navigation.navigate(routes.KEYVERIFY);
   };
 
   return (

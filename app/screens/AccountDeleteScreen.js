@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 
 const AccountDeleteScreen = () => {
@@ -9,10 +9,10 @@ const AccountDeleteScreen = () => {
   );
 };
 
-export default  AccountDeleteScreen;
+export default AccountDeleteScreen;
 
 const styles = StyleSheet.create({
-    container : {
-        flex : 1
-    }
+  container: {
+    flex: 1,
+  },
 });
