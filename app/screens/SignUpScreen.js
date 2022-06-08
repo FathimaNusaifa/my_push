@@ -1,4 +1,4 @@
-import {StyleSheet, ScrollView, StatusBar} from 'react-native';
+import {StyleSheet, ScrollView, StatusBar, ToastAndroid} from 'react-native';
 import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {Screen, Block, Typography, Button, TextBox} from '../components/index';
@@ -18,7 +18,8 @@ const SignInScreen = () => {
 
   const handleSignUp = () => {
     console.log(email, phoneNumer, NIC, password, confirmPassword);
-    navigation.navigate(routes.WELCOME);
+    ToastAndroid.show('SignUp successful !', ToastAndroid.SHORT);
+    //navigation.navigate(routes.WELCOME);
   };
 
   return (
@@ -97,7 +98,7 @@ const SignInScreen = () => {
             </Button>
             <Button white shadow onPress={() => navigation.goBack()}>
               <Typography center black bold size={15}>
-                LOGIN
+                SIGNIN
               </Typography>
             </Button>
           </ScrollView>

@@ -1,14 +1,7 @@
-import {StyleSheet, StatusBar} from 'react-native';
+import {StyleSheet, StatusBar, ToastAndroid} from 'react-native';
 import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
-import {
-  Screen,
-  Block,
-  Typography,
-  Button,
-  TextBox,
-  ToastAndroid,
-} from '../components/index';
+import {Screen, Block, Typography, Button, TextBox} from '../components/index';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import {colors} from '../theme';
@@ -21,12 +14,12 @@ const SignInScreen = () => {
 
   const handleLogin = () => {
     console.log(email, password);
-    navigation.navigate(routes.WELCOME);
+    ToastAndroid.show('Login successful !', ToastAndroid.SHORT);
   };
 
-  const handleHome = () => {
+  const handleSignUp = () => {
     console.log(email, password);
-    navigation.navigate(routes.PERSONALINFO);
+    navigation.navigate(routes.SIGNUP);
   };
 
   return (
@@ -65,12 +58,17 @@ const SignInScreen = () => {
               placeholder="Your password"
               secureTextEntry={true}
             />
-            <Button gradient shadow onPress={() => {}}>
+            <Button
+              gradient
+              shadow
+              onPress={() => {
+                handleLogin();
+              }}>
               <Typography center white bold size={15}>
                 LOGIN
               </Typography>
             </Button>
-            <Button white shadow onPress={() => navigation.goBack()}>
+            <Button white shadow onPress={() => handleSignUp()}>
               <Typography center black bold size={15}>
                 SIGNUP
               </Typography>

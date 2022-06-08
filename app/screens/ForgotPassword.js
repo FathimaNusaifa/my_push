@@ -1,4 +1,4 @@
-import {StyleSheet, StatusBar} from 'react-native';
+import {StyleSheet, StatusBar, ToastAndroid} from 'react-native';
 import React, {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {Screen, Block, Typography, Button, TextBox} from '../components/index';
@@ -13,7 +13,11 @@ const ForgotPassword = () => {
 
   const handleReset = () => {
     console.log(email);
-    navigation.navigate(routes.WELCOME);
+    //navigation.navigate(routes.WELCOME);
+    ToastAndroid.show(
+      'We have e-mailed your password reset link!',
+      ToastAndroid.SHORT,
+    );
   };
 
   return (
@@ -25,7 +29,7 @@ const ForgotPassword = () => {
         <Animatable.View animation="zoomIn" style={styles.animationBlock}>
           <Block>
             <Typography black style={styles.label}>
-              Forgot Password?
+              Reset Password?
             </Typography>
             <TextBox
               email
@@ -39,11 +43,11 @@ const ForgotPassword = () => {
                 Send
               </Typography>
             </Button>
-            <Button white shadow onPress={() => navigation.goBack()}>
+            {/* <Button white shadow onPress={() => navigation.goBack()}>
               <Typography center black bold size={15}>
                 SIGN IN
               </Typography>
-            </Button>
+            </Button> */}
           </Block>
         </Animatable.View>
       </LinearGradient>
