@@ -6,7 +6,7 @@ import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import {colors} from '../theme';
 import routes from '../navigation/routes';
-
+import newApi from '../../config';
 const SignInScreen = () => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
@@ -14,7 +14,27 @@ const SignInScreen = () => {
 
   const handleLogin = () => {
     console.log(email, password);
-    ToastAndroid.show('Login successful !', ToastAndroid.SHORT);
+    // checking password and confirm password
+    if (email == '' || password == '') {
+      ToastAndroid.show('Username/Password empty', ToastAndroid.SHORT);
+    } else {
+      newApi
+        .post('/signin', {
+          // making api request
+          email: email,
+          password: password,
+        })
+        .then(function (response) {
+          var output = response.data;
+          //console.log(output.message);
+          ToastAndroid.show(output.message, ToastAndroid.SHORT);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+
+    //navigation.navigate(routes.WELCOME);
   };
 
   const handleSignUp = () => {

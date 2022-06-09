@@ -8,7 +8,6 @@ import routes from '../navigation/routes';
 import {colors} from '../theme/index';
 import newApi from '../../config';
 import {useEffect} from 'react/cjs/react.production.min';
-import axios from 'axios';
 const SignInScreen = () => {
   const [email, setEmail] = useState(null);
   const [phone, setPhone] = useState(null);
@@ -20,23 +19,29 @@ const SignInScreen = () => {
   const handleSignUp = () => {
     console.log(email, phone, nic, password, confirmPassword);
 
-    axios
-      .post('http://192.168.8.161:8001/api/user/create', {
-        email: email,
-        password: password,
-        phone: phone,
-        nic: nic,
-      })
-      .then(function (response) {
-        var output = response.data;
-        console.log(output.message);
-        ToastAndroid.show(output.message, ToastAndroid.SHORT);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    // checking password and confirm password
+    if (password == confirmPassword) {
+      newApi
+        .post('/create', {
+          // making api request
+          email: email,
+          password: password,
+          phone: phone,
+          nic: nic,
+        })
+        .then(function (response) {
+          var output = response.data;
+          //console.log(output.message);
+          ToastAndroid.show(output.message, ToastAndroid.SHORT);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
 
-    //navigation.navigate(routes.WELCOME);
+      //navigation.navigate(routes.WELCOME);
+    } else {
+      ToastAndroid.show('Password not match', ToastAndroid.SHORT);
+    }
   };
 
   const handleSignIn = () => {
